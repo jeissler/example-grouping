@@ -21,8 +21,14 @@ interface GroupedItem {
   items: ResponseItem[]
 }
 
+enum Sort {
+  ASC,
+  DESC,
+}
+
 const isLoading = ref(true)
 const items = ref<ResponseItem[]>([])
+const sortDir = ref<Sort>(0)
 
 // experiments with groupBy
 const groupedItems = computed(() => {
@@ -30,9 +36,13 @@ const groupedItems = computed(() => {
 
   return Object.entries(grouped).map(([name, items]) => ({
     name,
-    items: items?.sort((a, b) => b.likes - a.likes) || [],
+    items: items?.sort((a, b) => (sortDir.value ? b.likes - a.likes : a.likes - b.likes)) || [],
   })) as GroupedItem[]
 })
+
+function toggleSort() {
+  sortDir.value = sortDir.value ? 0 : 1
+}
 
 try {
   // extract fetch wrapper to base util + composable
@@ -66,7 +76,14 @@ try {
         </p>
       </header>
 
-      <div class="p-6">
+      <div class="p-6 flex flex-col">
+        <button
+          v-if="user.items.length > 1"
+          class="mb-4 ml-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center gap-2"
+          @click="toggleSort"
+        >
+          Sort By Likes
+        </button>
         <ul class="space-y-4">
           <li
             v-for="item in user.items"
