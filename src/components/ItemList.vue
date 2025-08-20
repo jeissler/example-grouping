@@ -26,7 +26,6 @@ enum Sort {
   DESC,
 }
 
-const isLoading = ref(true)
 const items = ref<ResponseItem[]>([])
 const sortDir = ref<Sort>(0)
 
@@ -55,8 +54,6 @@ try {
   const data = await res.json()
 
   items.value = data.comments
-
-  isLoading.value = false
 } catch (err) {
   console.error(err)
 }
