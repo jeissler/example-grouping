@@ -33,7 +33,7 @@ const groupedItems = computed(() => {
     myMap.set(fullName, [...existing, item])
   }
 
-  return Object.fromEntries(myMap)
+  return Object.fromEntries(myMap) // if templateorder preservation is important should convert to array
 })
 
 try {
