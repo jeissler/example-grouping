@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
+// move types and naming
 interface User {
   id: number
   username: string
@@ -36,7 +37,7 @@ const groupedItems = computed(() => {
 try {
   // extract fetch wrapper to base util + composable
   // check for correct headers/data types
-  // needs message handling
+  // needs error message handling
   const res = await fetch('https://dummyjson.com/comments')
 
   if (!res.ok) throw new Error(`Error: ${res.status}`)
@@ -88,5 +89,3 @@ try {
     </section>
   </div>
 </template>
-
-<style scoped></style>

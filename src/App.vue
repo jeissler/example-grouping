@@ -7,6 +7,7 @@ import ItemList from '@/components/ItemList.vue'
     <h1>Page Header</h1>
   </header>
   <main class="flex">
+    <!-- investigate suspense slot spec for child loading states -->
     <Suspense>
       <ItemList />
       <template #fallback>
