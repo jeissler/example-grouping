@@ -25,7 +25,8 @@ const items = ref<ResponseItem[]>([])
 
 // experiments with groupBy
 const groupedItems = computed(() => {
-  return Object.groupBy(items.value, (item: ResponseItem) => item.user.fullName)
+  const grouped = Object.groupBy(items.value, (item: ResponseItem) => item.user.fullName)
+  return Object.entries(grouped).map(([name, items]) => ({ name, items }))
 })
 
 try {
