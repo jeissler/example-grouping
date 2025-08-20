@@ -23,17 +23,16 @@ interface GroupedItem {
 const isLoading = ref(true)
 const items = ref<ResponseItem[]>([])
 
-const groupedItems = computed(() => {
-  // group items by user - goto
-  const grouped: GroupedItem[] = []
-  for (const item of items.value) {
+// using reduce you can do the same thing w/o and extra var/block
+const groupedItems = computed(() =>
+  items.value.reduce((grouped: GroupedItem[], item) => {
     const fullName = item.user.fullName
-    const group = grouped.find((i) => i.name === fullName)
-    if (group) group.items.push(item)
-    else grouped.push({ name: item.user.fullName, items: [item] })
-  }
-  return grouped
-})
+    const existing = grouped.find((g) => g.name === fullName)
+    if (existing) existing.items.push(item)
+    else grouped.push({ name: fullName, items: [item] })
+    return grouped
+  }, []),
+)
 
 try {
   // extract fetch wrapper to base util + composable
