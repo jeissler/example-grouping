@@ -30,7 +30,7 @@ const groupedItems = computed(() => {
   return Object.entries(grouped).map(([name, items]) => ({
     name,
     items: items?.sort((a, b) => b.likes - a.likes) || [],
-  }))
+  })) as GroupedItem[]
 })
 
 try {
