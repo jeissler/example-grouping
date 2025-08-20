@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import LikeIcon from '@/assets/likeIcon.svg'
 
 // move types and naming
 interface User {
@@ -76,7 +77,7 @@ try {
       <div class="p-6 flex flex-col">
         <button
           v-if="items.length > 1"
-          class="mb-4 ml-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center gap-2"
+          class="mb-4 ml-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center gap-2 cursor-pointer"
           @click="toggleSort"
         >
           Sort By Likes
@@ -90,11 +91,7 @@ try {
             <div class="flex items-start justify-between">
               <p class="text-gray-800 leading-relaxed flex-1">{{ body }}</p>
               <div class="flex items-center ml-4 text-blue-600 font-medium">
-                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"
-                  />
-                </svg>
+                <LikeIcon class="w-4 h-4 mr-1" />
                 {{ likes }}
               </div>
             </div>
