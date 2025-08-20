@@ -23,17 +23,9 @@ interface GroupedItem {
 const isLoading = ref(true)
 const items = ref<ResponseItem[]>([])
 
-// using map is similar to goto solution, needs template updates
+// experiments with groupBy
 const groupedItems = computed(() => {
-  const myMap: Map<string, ResponseItem[]> = new Map()
-
-  for (const item of items.value) {
-    const fullName = item.user.fullName
-    const existing = myMap.get(fullName) || []
-    myMap.set(fullName, [...existing, item])
-  }
-
-  return Object.fromEntries(myMap) // if templateorder preservation is important should convert to array
+  return Object.groupBy(items.value, (item: ResponseItem) => item.user.fullName)
 })
 
 try {
