@@ -29,8 +29,8 @@ const groupedItems = computed(() => {
 
   for (const item of items.value) {
     const fullName = item.user.fullName
-    if (!myMap.has(fullName)) myMap.set(fullName, [])
-    myMap.get(fullName)?.push(item)
+    const existing = myMap.get(fullName) || []
+    myMap.set(fullName, [...existing, item])
   }
 
   return Object.fromEntries(myMap)
