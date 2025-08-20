@@ -61,7 +61,9 @@ try {
     >
       <header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-4">
         <h2 class="text-xl font-semibold">{{ user.name }}</h2>
-        <p class="text-blue-100 text-sm mt-1">{{ user.items.length }} comments</p>
+        <p class="text-blue-100 text-sm mt-1">
+          {{ user.items.length }} comment{{ user.items.length > 1 ? 's' : '' }}
+        </p>
       </header>
 
       <div class="p-6">
