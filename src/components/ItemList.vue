@@ -23,16 +23,18 @@ interface GroupedItem {
 const isLoading = ref(true)
 const items = ref<ResponseItem[]>([])
 
-// using reduce you can do the same thing w/o and extra var/block
-const groupedItems = computed(() =>
-  items.value.reduce((grouped: GroupedItem[], item) => {
+// using map is similar to goto solution, needs template updates
+const groupedItems = computed(() => {
+  const myMap: Map<string, ResponseItem[]> = new Map()
+
+  for (const item of items.value) {
     const fullName = item.user.fullName
-    const existing = grouped.find((g) => g.name === fullName)
-    if (existing) existing.items.push(item)
-    else grouped.push({ name: fullName, items: [item] })
-    return grouped
-  }, []),
-)
+    if (!myMap.has(fullName)) myMap.set(fullName, [])
+    myMap.get(fullName)?.push(item)
+  }
+
+  return Object.fromEntries(myMap)
+})
 
 try {
   // extract fetch wrapper to base util + composable
